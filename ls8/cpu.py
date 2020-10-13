@@ -9,7 +9,8 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
-        self.ram = [None] * 256
+        self.halted = False
+        self.ram = [0] * 256
         self.reg = [0] * 8
         self.pc = 0
 
@@ -77,6 +78,29 @@ class CPU:
 
         print()
 
+    def HTL(self):
+        self.halted = True
+
+    # def LDI(self, reg, MDR):
+    #     self.reg[reg] = MDR
+
     def run(self):
         """Run the CPU."""
-        pass
+        while not self.halted:
+            operand_a = self.ram_read(self.pc + 1)
+            operand_b = self.ram_read(self.pc + 2)
+            instruction_reg = self.pc
+            instruction = self.ram[instruction_reg]
+
+            if instruction == LDI:
+                self.LDI(operand_a, operand_b)
+                self.pc += 2
+            elif instructions == PRN:
+                self.PRN(operand_a)
+                self.pc += 1
+            elif instruction == HALT:
+                self.halted = True
+            self.pc += 1
+        else:
+            print("Unknown instruction {instruction} at address {pc}")
+            sys.exit(1)
