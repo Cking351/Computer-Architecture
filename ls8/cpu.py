@@ -3,6 +3,8 @@
 import sys
 
 HLT = 0b00000001
+LDI = 0b10000010
+PRN = 0b01000111
 
 """
 PC: Program Counter, address of the currently executing instruction
@@ -26,26 +28,27 @@ class CPU:
         self.pc = 0
         self.fl = 0
 
-    def load(self):
+    def load(self, filename):
         """Load a program into memory."""
 
         address = 0
-
-        # For now, we've just hardcoded a program:
-
-        program = [
-            # From print8.ls8
-            0b10000010,  # LDI R0,8
-            0b00000000,
-            0b00001000,
-            0b01000111,  # PRN R0
-            0b00000000,
-            0b00000001,  # HLT
-        ]
-
-        for instruction in program:
-            self.ram[address] = instruction
-            address += 1
+        try:
+            with open(filename) as fp:
+                for line in fp:
+                    line = line.strip()
+                    if line == "" or line[0] == "#":
+                        continue
+                    try:
+                        str_value = line.split("#")[0]
+                        value = int(str_value, 10)
+                    except ValueError:
+                        print(f"Invalid Number: {str_value}")
+                        sys.exit(1)
+                    self.ram_write(address)
+                    address += 1
+        except FileNotFoundError:
+            print(f"File not found: {sys.argv[1]}")
+            sys.exit(2)
 
     def ram_read(self, address):
         return self.ram[address]
@@ -109,4 +112,10 @@ class CPU:
         if instruction == HLT:
             self.halted = True
             self.pc += 1
-            return
+        elif instruction == LDI:
+            self.reg[operand_a] = operand_b
+            self.pc += 3
+        elif instruction == PRN:
+            val = self.reg[operand_a]
+            print(val)
+            self.pc += 2
