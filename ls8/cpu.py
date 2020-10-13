@@ -2,6 +2,16 @@
 
 import sys
 
+HLT = 0b00000001
+
+"""
+PC: Program Counter, address of the currently executing instruction
+IR: Instruction Register, contains a copy of the currently executing instruction
+MAR: Memory Address Register, holds the memory address we're reading or writing
+MDR: Memory Data Register, holds the value to write or the value just read
+FL: Flags, see below
+"""
+
 
 # INTERRUPT IS A STRETCH GOAL
 class CPU:
@@ -12,7 +22,9 @@ class CPU:
         self.halted = False
         self.ram = [0] * 256
         self.reg = [0] * 8
+        self.reg[7] = 0xF4  # This is reserved for the stack pointer
         self.pc = 0
+        self.fl = 0
 
     def load(self):
         """Load a program into memory."""
@@ -35,11 +47,11 @@ class CPU:
             self.ram[address] = instruction
             address += 1
 
-    def ram_read(self, add):
-        return self.ram[add]
+    def ram_read(self, address):
+        return self.ram[address]
 
-    def ram_write(self, add, val):
-        self.ram[add] = val
+    def ram_write(self, address, value):
+        self.ram[address] = value
 
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
@@ -54,7 +66,11 @@ class CPU:
         elif op == "MOD":
             self.reg[reg_a] %= self.reg[reg_b]
         elif op == "DIV":
-            self.reg[reg_a] //= self.reg[reg_b]
+            self.reg[reg_a] /= self.reg[reg_b]
+        elif op == "XOR":
+            self.reg[reg_a] ^= self.reg[reg_b]
+        elif op == "AND":
+            self.reg[reg_a] &= self.reg[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -78,29 +94,19 @@ class CPU:
 
         print()
 
-    def HTL(self):
-        self.halted = True
-
-    # def LDI(self, reg, MDR):
-    #     self.reg[reg] = MDR
-
     def run(self):
         """Run the CPU."""
         while not self.halted:
+            instruction_to_execute = self.ram_read(self.pc)
             operand_a = self.ram_read(self.pc + 1)
             operand_b = self.ram_read(self.pc + 2)
-            instruction_reg = self.pc
-            instruction = self.ram[instruction_reg]
-
-            if instruction == LDI:
-                self.LDI(operand_a, operand_b)
-                self.pc += 2
-            elif instructions == PRN:
-                self.PRN(operand_a)
-                self.pc += 1
-            elif instruction == HALT:
-                self.halted = True
-            self.pc += 1
+            self.execute_instruction(instruction_to_execute, operand_a, operand_b)
         else:
             print("Unknown instruction {instruction} at address {pc}")
             sys.exit(1)
+
+    def execute_instruction(self, instruction, operand_a, operand_b):
+        if instruction == HLT:
+            self.halted = True
+            self.pc += 1
+            return
