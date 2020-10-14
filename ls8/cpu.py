@@ -5,14 +5,10 @@ import sys
 HLT = 0b00000001
 LDI = 0b10000010
 PRN = 0b01000111
-
-"""
-PC: Program Counter, address of the currently executing instruction
-IR: Instruction Register, contains a copy of the currently executing instruction
-MAR: Memory Address Register, holds the memory address we're reading or writing
-MDR: Memory Data Register, holds the value to write or the value just read
-FL: Flags, see below
-"""
+MUL = 0b10100010
+PUSH = 0b01000101
+POP = 0b01000110
+SP = 7
 
 
 # INTERRUPT IS A STRETCH GOAL
@@ -24,28 +20,34 @@ class CPU:
         self.halted = False
         self.ram = [0] * 256
         self.reg = [0] * 8
-        self.reg[7] = 0xF4  # This is reserved for the stack pointer
+        self.reg[SP] = 0xF4
         self.pc = 0
-        self.fl = 0
 
-    def load(self, filename):
-        """Load a program into memory."""
+    def load(self):
+        if len(sys.argv) != 2:
+            print("usage: comp.py filename")
+            sys.exit(1)
 
-        address = 0
         try:
-            with open(filename) as fp:
-                for line in fp:
-                    line = line.strip()
-                    if line == "" or line[0] == "#":
+            address = 0
+            # open the file (2nd arg)
+            with open(sys.argv[1]) as f:
+                for line in f:
+                    t = line.split('#')
+                    instruction = t[0].strip()
+                    # ignore the blank lines
+                    if instruction == "":
                         continue
+
                     try:
-                        str_value = line.split("#")[0]
-                        value = int(str_value, 10)
+                        instruction = int(instruction, 2)
                     except ValueError:
-                        print(f"Invalid Number: {str_value}")
+                        print(f"Invalid number '{instruction}")
                         sys.exit(1)
-                    self.ram_write(address)
+
+                    self.ram[address] = instruction
                     address += 1
+
         except FileNotFoundError:
             print(f"File not found: {sys.argv[1]}")
             sys.exit(2)
@@ -64,7 +66,7 @@ class CPU:
         # elif op == "SUB": etc
         elif op == "SUB":
             self.reg[reg_a] -= self.reg[reg_b]
-        elif op == "MUL":
+        elif op == MUL:
             self.reg[reg_a] *= self.reg[reg_b]
         elif op == "MOD":
             self.reg[reg_a] %= self.reg[reg_b]
@@ -100,22 +102,40 @@ class CPU:
     def run(self):
         """Run the CPU."""
         while not self.halted:
-            instruction_to_execute = self.ram_read(self.pc)
-            operand_a = self.ram_read(self.pc + 1)
-            operand_b = self.ram_read(self.pc + 2)
+            instruction_to_execute = self.ram[self.pc]
+            operand_a = self.ram[self.pc + 1]
+            operand_b = self.ram[self.pc + 2]
             self.execute_instruction(instruction_to_execute, operand_a, operand_b)
-        else:
-            print("Unknown instruction {instruction} at address {pc}")
-            sys.exit(1)
 
     def execute_instruction(self, instruction, operand_a, operand_b):
         if instruction == HLT:
             self.halted = True
             self.pc += 1
+
         elif instruction == LDI:
             self.reg[operand_a] = operand_b
             self.pc += 3
+
         elif instruction == PRN:
-            val = self.reg[operand_a]
-            print(val)
+            print(self.reg[operand_a])
             self.pc += 2
+
+        elif instruction == MUL:
+            self.alu(instruction, operand_a, operand_b)
+            self.pc += 3
+
+        elif instruction == PUSH:
+            # Decrement sp
+            self.reg[SP] -= 1
+            value_from_reg = self.reg[operand_a]
+            self.ram_write(value_from_reg, self.reg[SP])
+            self.pc += 2
+
+        elif instruction == POP:
+            topmost_value = self.ram_read(self.reg[SP])
+            self.reg[operand_a] = topmost_value
+            self.reg[SP] += 1
+            self.pc += 2
+        else:
+            print("Unknown Operation..")
+            sys.exit(1)
