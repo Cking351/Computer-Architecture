@@ -6,8 +6,11 @@ HLT = 0b00000001
 LDI = 0b10000010
 PRN = 0b01000111
 MUL = 0b10100010
-PUSH = 0b01000101
 POP = 0b01000110
+PUSH = 0b01000101
+RET = 0b00010001
+CALL = 0b01010000
+ADD = 0b10100000
 SP = 7
 
 
@@ -20,7 +23,7 @@ class CPU:
         self.halted = False
         self.ram = [0] * 256
         self.reg = [0] * 8
-        self.reg[SP] = 0xF4
+        self.reg[7] = 0xF4
         self.pc = 0
 
     def load(self):
@@ -128,7 +131,7 @@ class CPU:
             # Decrement sp
             self.reg[SP] -= 1
             value_from_reg = self.reg[operand_a]
-            self.ram_write(value_from_reg, self.reg[SP])
+            self.ram_write(self.reg[SP], value_from_reg)
             self.pc += 2
 
         elif instruction == POP:
@@ -136,6 +139,23 @@ class CPU:
             self.reg[operand_a] = topmost_value
             self.reg[SP] += 1
             self.pc += 2
+
+        elif instruction == ADD:
+            self.alu("ADD", operand_a, operand_b)
+            self.pc += 3
+
+        elif instruction == CALL:
+            self.reg[SP] -= 1
+            stack_address = self.reg[SP]
+            returned_address = operand_b
+            self.ram_write(stack_address, returned_address)
+            register_number = self.ram_read(operand_a)
+            self.pc = self.reg[register_number]
+
+        elif instruction == RET:
+            self.pc = self.ram_read(self.reg[SP])
+            self.reg[SP] += 1
+
         else:
             print("Unknown Operation..")
             sys.exit(1)
