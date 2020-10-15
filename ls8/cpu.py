@@ -114,6 +114,7 @@ class CPU:
         if instruction == HLT:
             self.halted = True
             self.pc += 1
+            sys.exit(1)
 
         elif instruction == LDI:
             self.reg[operand_a] = operand_b
@@ -145,17 +146,16 @@ class CPU:
             self.pc += 3
 
         elif instruction == CALL:
+            self.pc += 1
             self.reg[SP] -= 1
-            stack_address = self.reg[SP]
-            returned_address = operand_b
-            self.ram_write(stack_address, returned_address)
-            register_number = self.ram_read(operand_a)
-            self.pc = self.reg[register_number]
+            self.ram[self.reg[SP]] = self.pc + 1
+            self.pc = self.reg[self.ram_read(self.pc)]
 
         elif instruction == RET:
-            self.pc = self.ram_read(self.reg[SP])
+            next_address = self.ram_read(self.reg[SP])
             self.reg[SP] += 1
+            self.pc = next_address
 
         else:
-            print("Unknown Operation..")
+            print("Unknown Operation..", instruction)
             sys.exit(1)
