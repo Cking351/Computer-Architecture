@@ -32,7 +32,9 @@ class CPU:
         self.reg = [0] * 8
         self.reg[SP] = 0xF4
         self.pc = 0
-        self.fl = 0b00000000  # Set flag to zero
+        self.E = 0
+        self.G = 0
+        self.L = 0
 
     def load(self):
         try:
@@ -84,15 +86,15 @@ class CPU:
         elif op == "CMP":
             if self.reg[reg_a] > self.reg[reg_b]:
                 # Raise "L" flag to "1"
-                self.fl = 0b00000100
+                self.L = 1
             elif self.reg[reg_a] > self.reg[reg_b]:
                 # Raise "G" flag to "1"
-                self.fl = 0b00000010
+                self.G = 1
             elif self.reg[reg_a] == self.reg[reg_b]:
                 # Raise "E" flag to "1"
-                self.fl = 0b00000001
+                self.E = 1
             else:
-                self.fl = 0b00000000
+                self.E = 0
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -179,16 +181,14 @@ class CPU:
         elif instruction == JMP:  # Jump to given address
             self.pc = self.reg[operand_a]
 
-        elif instruction == JEQ:  # Check if Equal flag is true using logical AND
-            equal = self.fl & 0b00000001  # 1?
-            if equal:
+        elif instruction == JEQ:  # Check if Equal flag is true
+            if self.E == 1:
                 self.pc = self.reg[operand_a]  # Jump to address in given reg
             else:
                 self.pc += 2
 
         elif instruction == JNE:  # Check if Equal flag is clear (0) move to address in given reg
-            equal = self.fl & 0b00000001
-            if not equal:
+            if self.E == 0:
                 self.pc = self.reg[operand_a]
             else:
                 self.pc += 2
