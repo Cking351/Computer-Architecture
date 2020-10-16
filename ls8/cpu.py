@@ -11,6 +11,13 @@ PUSH = 0b01000101
 RET = 0b00010001
 CALL = 0b01010000
 ADD = 0b10100000
+CMP = 0b10100111
+JMP = 0b01010100
+JEQ = 0b01010101
+JNE = 0b01010110
+JLT = 0b01011000
+JGT = 0b01010111
+JGE = 0b01011000
 SP = 7
 
 
@@ -23,22 +30,17 @@ class CPU:
         self.halted = False
         self.ram = [0] * 256
         self.reg = [0] * 8
-        self.reg[7] = 0xF4
+        self.reg[SP] = 0xF4
         self.pc = 0
+        self.fl = 0b00000000  # Set flag to zero
 
     def load(self):
-        if len(sys.argv) != 2:
-            print("usage: comp.py filename")
-            sys.exit(1)
-
         try:
             address = 0
-            # open the file (2nd arg)
             with open(sys.argv[1]) as f:
                 for line in f:
                     t = line.split('#')
                     instruction = t[0].strip()
-                    # ignore the blank lines
                     if instruction == "":
                         continue
 
@@ -69,7 +71,7 @@ class CPU:
         # elif op == "SUB": etc
         elif op == "SUB":
             self.reg[reg_a] -= self.reg[reg_b]
-        elif op == MUL:
+        elif op == "MUL":
             self.reg[reg_a] *= self.reg[reg_b]
         elif op == "MOD":
             self.reg[reg_a] %= self.reg[reg_b]
@@ -79,6 +81,18 @@ class CPU:
             self.reg[reg_a] ^= self.reg[reg_b]
         elif op == "AND":
             self.reg[reg_a] &= self.reg[reg_b]
+        elif op == "CMP":
+            if self.reg[reg_a] > self.reg[reg_b]:
+                # Raise "L" flag to "1"
+                self.fl = 0b00000100
+            elif self.reg[reg_a] > self.reg[reg_b]:
+                # Raise "G" flag to "1"
+                self.fl = 0b00000010
+            elif self.reg[reg_a] == self.reg[reg_b]:
+                # Raise "E" flag to "1"
+                self.fl = 0b00000001
+            else:
+                self.fl = 0b00000000
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -105,9 +119,9 @@ class CPU:
     def run(self):
         """Run the CPU."""
         while not self.halted:
-            instruction_to_execute = self.ram[self.pc]
-            operand_a = self.ram[self.pc + 1]
-            operand_b = self.ram[self.pc + 2]
+            instruction_to_execute = self.ram_read(self.pc)
+            operand_a = self.ram_read(self.pc + 1)
+            operand_b = self.ram_read(self.pc + 2)
             self.execute_instruction(instruction_to_execute, operand_a, operand_b)
 
     def execute_instruction(self, instruction, operand_a, operand_b):
@@ -125,19 +139,21 @@ class CPU:
             self.pc += 2
 
         elif instruction == MUL:
-            self.alu(instruction, operand_a, operand_b)
+            self.alu("MUL", operand_a, operand_b)
             self.pc += 3
 
         elif instruction == PUSH:
             # Decrement sp
             self.reg[SP] -= 1
-            value_from_reg = self.reg[operand_a]
-            self.ram_write(self.reg[SP], value_from_reg)
+            value_from_reg = self.ram_read(self.pc + 1)
+            self.ram[self.reg[SP]] = value_from_reg
             self.pc += 2
 
         elif instruction == POP:
-            topmost_value = self.ram_read(self.reg[SP])
-            self.reg[operand_a] = topmost_value
+            address_to_pop = self.reg[SP]
+            value = self.ram[address_to_pop]
+            reg_num = self.ram[self.pc + 1]
+            self.reg[reg_num] = value
             self.reg[SP] += 1
             self.pc += 2
 
@@ -155,6 +171,27 @@ class CPU:
             next_address = self.ram_read(self.reg[SP])
             self.reg[SP] += 1
             self.pc = next_address
+
+        elif instruction == CMP:  # Set Flags in ALU
+            self.alu("CMP", operand_a, operand_b)
+            self.pc += 3
+
+        elif instruction == JMP:  # Jump to given address
+            self.pc = self.reg[operand_a]
+
+        elif instruction == JEQ:  # Check if Equal flag is true using logical AND
+            equal = self.fl & 0b00000001  # 1?
+            if equal:
+                self.pc = self.reg[operand_a]  # Jump to address in given reg
+            else:
+                self.pc += 2
+
+        elif instruction == JNE:  # Check if Equal flag is clear (0) move to address in given reg
+            equal = self.fl & 0b00000001
+            if not equal:
+                self.pc = self.reg[operand_a]
+            else:
+                self.pc += 2
 
         else:
             print("Unknown Operation..", instruction)
