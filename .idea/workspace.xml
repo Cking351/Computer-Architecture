@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="98a6c88f-ab93-4898-96c8-661c8a485515" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -23,8 +41,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.cpu">
+  <component name="RunManager" selected="Python.ls8">
     <configuration name="cpu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Computer-Architecture" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -32,9 +51,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\kingc\Desktop\Python\Computer-Architecture\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ls8" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -91,11 +110,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.cpu" />
+      <item itemvalue="Python.ls8" />
+      <item itemvalue="Python.scratch_1" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ls8" />
         <item itemvalue="Python.cpu" />
         <item itemvalue="Python.scratch_1" />
-        <item itemvalue="Python.ls8" />
       </list>
     </recent_temporary>
   </component>
@@ -112,34 +136,103 @@
       <workItem from="1602522697179" duration="3063000" />
       <workItem from="1602530186431" duration="2933000" />
       <workItem from="1602543562731" duration="1384000" />
-      <workItem from="1602597627315" duration="504000" />
+      <workItem from="1602597627315" duration="572000" />
+      <workItem from="1602618845549" duration="8179000" />
+      <workItem from="1602688755315" duration="1344000" />
+      <workItem from="1602690313254" duration="1014000" />
+      <workItem from="1602691357901" duration="7009000" />
+      <workItem from="1602700674739" duration="10669000" />
+      <workItem from="1602769030100" duration="2911000" />
+      <workItem from="1602784812202" duration="175000" />
+      <workItem from="1602790637391" duration="1868000" />
+      <workItem from="1602799766721" duration="5018000" />
+      <workItem from="1602810320172" duration="2652000" />
+      <workItem from="1602813596910" duration="37000" />
+      <workItem from="1602856819499" duration="6992000" />
+      <workItem from="1602870380921" duration="1897000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1876" height="282" key="GridCell.Tab.0.bottom" timestamp="1602550058287">
+    <state x="698" y="343" key="#Notifications" timestamp="1602626812362">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602550058287" />
-    <state width="1876" height="282" key="GridCell.Tab.0.center" timestamp="1602550058287">
+    <state x="698" y="343" key="#Notifications/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602626812362" />
+    <state x="587" y="0" key="#Python" timestamp="1602688808712">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602550058287" />
-    <state width="1876" height="282" key="GridCell.Tab.0.left" timestamp="1602550058287">
+    <state x="587" y="0" key="#Python/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602688808712" />
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602700757582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602550058287" />
-    <state width="1876" height="282" key="GridCell.Tab.0.right" timestamp="1602550058287">
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602700757582" />
+    <state x="827" y="274" key="EnvironmentVariablesDialog" timestamp="1602700729225">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602550058287" />
+    <state x="827" y="274" key="EnvironmentVariablesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602700729225" />
+    <state width="1876" height="187" key="GridCell.Tab.0.bottom" timestamp="1602866414319">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="187" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414319" />
+    <state width="1876" height="187" key="GridCell.Tab.0.center" timestamp="1602866414319">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="187" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414319" />
+    <state width="1876" height="187" key="GridCell.Tab.0.left" timestamp="1602866414319">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="187" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414319" />
+    <state width="1876" height="187" key="GridCell.Tab.0.right" timestamp="1602866414319">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="187" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414319" />
+    <state width="1876" height="348" key="GridCell.Tab.1.bottom" timestamp="1602866414317">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414317" />
+    <state width="1876" height="348" key="GridCell.Tab.1.center" timestamp="1602866414316">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414316" />
+    <state width="1876" height="348" key="GridCell.Tab.1.left" timestamp="1602866414316">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414316" />
+    <state width="1876" height="348" key="GridCell.Tab.1.right" timestamp="1602866414317">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602866414317" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1602690564639">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602690564639" />
+    <state x="512" y="248" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1602857620788">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="512" y="248" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602857620788" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1602688787851">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602688787851" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Computer_Architecture$cpu.coverage" NAME="cpu Coverage Results" MODIFIED="1602543601149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ls8" />
+    <SUITE FILE_PATH="coverage/Computer_Architecture$cpu.coverage" NAME="cpu Coverage Results" MODIFIED="1602857564489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ls8" />
     <SUITE FILE_PATH="coverage/Computer_Architecture$scratch_1.coverage" NAME="scratch_1 Coverage Results" MODIFIED="1602532219347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
-    <SUITE FILE_PATH="coverage/Computer_Architecture$ls8.coverage" NAME="ls8 Coverage Results" MODIFIED="1602527398309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ls8" />
+    <SUITE FILE_PATH="coverage/Computer_Architecture$ls8.coverage" NAME="ls8 Coverage Results" MODIFIED="1602864213898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ls8" />
   </component>
 </project>
